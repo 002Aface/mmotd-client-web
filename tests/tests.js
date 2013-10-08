@@ -1,14 +1,19 @@
 require.config({
     baseUrl: '../src',
     paths: {
-        'underscore': 'lib/underscore'
+        'underscore': 'lib/underscore',
+        'jquery': 'lib/jquery-1.10.2.min'
     }
 });
 
 require(
     [
-        "../tests/spec/utils/timer",
-        "../tests/spec/graphics/Spritemap"
+        "../tests/spec/utils/Timer",
+        "../tests/spec/graphics/Drawable",
+        "../tests/spec/graphics/Sprite",
+        "../tests/spec/graphics/Spritemap",
+        "../tests/spec/graphics/Scene",
+        "../tests/spec/Renderer"
     ],
     function(){
         var jasmineEnv = jasmine.getEnv();

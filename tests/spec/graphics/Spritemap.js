@@ -1,28 +1,18 @@
 define(
-    [
-        'graphics/Spritemap',
-        './Drawable'
-    ],
-    function(Spritemap, shouldBehaveLikeDrawable){
+    ['graphics/Spritemap'],
+    function(Spritemap){
         describe('The Spritesheet class', function(){
 
+            var instance;
+
             beforeEach(function(){
-                runs(function(){
-                    this.env.instance = new Spritemap('test_assets/imgs/spritesheet.png', 60, 60);
-                });
+                instance = new Spritemap('test_assets/imgs/spritesheet.png', 60, 60);
             });
 
             afterEach(function(){
-                delete this.env.instance;
+                instance = undefined;
             });
 
-            it('should be instantiable', function(){
-                runs(function(){
-                    expect(this.env.instance).toBeDefined();
-                });
-            });
-
-            shouldBehaveLikeDrawable();
-        })
+        });
     }
 );
