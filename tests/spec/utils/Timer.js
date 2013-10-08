@@ -1,5 +1,5 @@
 define(
-    ['utils/timer'],
+    ['utils/Timer'],
     function(Timer){
         describe(
             "The Timer utility",
