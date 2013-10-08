@@ -4,7 +4,6 @@ define(
         'graphics/Drawable'
     ],
     function(_, Drawable){
-        console.log(_);
         var Spritemap = function(source, tileWidth, tileHeight){
             var me = this;
             Drawable.call(me);
