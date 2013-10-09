@@ -5,6 +5,7 @@ define(
             "The Timer utility",
             function(){
 
+                var async = new AsyncSpec(this);
                 var timerSpy;
 
                 beforeEach(function(){
@@ -24,7 +25,7 @@ define(
                     });
                     waitsFor(function(){
                         return timerSpy.calls.length == 1;
-                    }, "event to be triggered", 100);
+                    }, "event to be triggered", 101);
                 });
 
                 it('should fire repeating events once per period and stop after specified number of times', function(){
@@ -35,14 +36,14 @@ define(
                     });
                     waitsFor(function(){
                         return timerSpy.calls.length == 1;
-                    }, "event to be triggered one time", 100);
+                    }, "event to be triggered one time", 101);
                     waitsFor(function(){
                         return timerSpy.calls.length == 2;
-                    }, "event to be triggered two times", 100);
+                    }, "event to be triggered two times", 101);
                     waitsFor(function(){
                         return timerSpy.calls.length == 3;
-                    }, "event to be triggered three times", 100);
-                    waits(100);
+                    }, "event to be triggered three times", 101);
+                    waits(101);
                     runs(function(){
                         expect(timerSpy.calls.length).toEqual(3);
                     });
@@ -56,16 +57,16 @@ define(
                     });
                     waitsFor(function(){
                         return timerSpy.calls.length == 1;
-                    }, "event to be triggered one time", 100);
+                    }, "event to be triggered one time", 101);
                     waitsFor(function(){
                         return timerSpy.calls.length == 2;
-                    }, "event to be triggered two times", 100);
+                    }, "event to be triggered two times", 101);
                     waitsFor(function(){
                         return timerSpy.calls.length == 3;
-                    }, "event to be triggered three times", 100);
+                    }, "event to be triggered three times", 101);
                     waitsFor(function(){
                         return timerSpy.calls.length == 10;
-                    }, "event to be triggered three times", 1000);
+                    }, "event to be triggered ten times", 1001);
 
                 });
 
@@ -76,11 +77,11 @@ define(
                             timerSpy();
                         }, 100);
                     });
-                    waits(50);
+                    waits(51);
                     runs(function(){
                         Timer.remove(timerEvent);
                     });
-                    waits(50);
+                    waits(51);
                     runs(function(){
                         expect(timerSpy).not.toHaveBeenCalled();
                     });
@@ -95,17 +96,17 @@ define(
                     });
                     waitsFor(function(){
                         return timerSpy.calls.length == 1;
-                    }, "event to be triggered one time", 100);
+                    }, "event to be triggered one time", 101);
                     waitsFor(function(){
                         return timerSpy.calls.length == 2;
-                    }, "event to be triggered two times", 100);
+                    }, "event to be triggered two times", 101);
                     waitsFor(function(){
                         return timerSpy.calls.length == 3;
-                    }, "event to be triggered three times", 100);
+                    }, "event to be triggered three times", 101);
                     runs(function(){
                         Timer.remove(timerEvent);
                     });
-                    waits(100);
+                    waits(101);
                     runs(function(){
                         expect(timerSpy.calls.length).toEqual(3);
                     });
