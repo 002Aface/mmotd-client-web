@@ -21,11 +21,11 @@ define(
 
             it("should have callable on, off and emit functions", function(){
                 expect(instance.on).toBeDefined();
-                expect(instance.on instanceof Function).toEqual(true);
+                expect(instance.on instanceof Function).toBe(true);
                 expect(instance.off).toBeDefined();
-                expect(instance.off instanceof Function).toEqual(true);
+                expect(instance.off instanceof Function).toBe(true);
                 expect(instance.emit).toBeDefined();
-                expect(instance.emit instanceof Function).toEqual(true);
+                expect(instance.emit instanceof Function).toBe(true);
             });
 
             it("should allow callbacks to be registered for events", function(){
