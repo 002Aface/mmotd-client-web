@@ -4,8 +4,8 @@
   * Simple timed event management - skips the need for countless untrackable setIntervals and setTimeouts
   **/
 define(
-    [],
-    function(){
+    ['underscore'],
+    function(_){
         var Timer = function(){
             var me = this;
             me._events = [];
@@ -20,7 +20,7 @@ define(
                 timeout: timeout,
                 lastExec: me._lastStamp,
                 timestamp: timestamp,
-                repeat: repeat 
+                repeat: repeat
             };
             if(evt.repeat > 0) evt.repeat--;
             me._events.push(evt);
@@ -32,7 +32,7 @@ define(
             var me = this;
             for (var idx = 0; idx < me._events.length; idx++){
                 if (target == me._events[idx] || target == me._events[idx].action){
-                    me._events.splice(idx, 1)
+                    me._events.splice(idx, 1);
                 }
             }
         };
@@ -42,7 +42,7 @@ define(
             var me = this;
             me._startStamp = new Date().getTime();
             me._lastStamp = me._startStamp;
-            me._controlInterval = setInterval(_.bind(me._update, me), 10);
+            me._controlInterval = window.setInterval(_.bind(me._update, me), 10);
         };
 
         Timer.prototype.pause = function(){
