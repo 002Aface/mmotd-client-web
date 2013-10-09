@@ -73,6 +73,14 @@ define(
                 expect(cbSpy).toHaveBeenCalled();
             });
 
+            it("should execute registered callbacks with parameters passed to emit", function(){
+                var cbSpy = jasmine.createSpy('cbSpy');
+                instance.on('event', cbSpy);
+                expect(cbSpy).not.toHaveBeenCalled();
+                instance.emit('event', 1, 'a', false);
+                expect(cbSpy).toHaveBeenCalledWith('event', 1, 'a', false);
+            });
+
             it("should continue executing registered callbacks if one throws an error", function(){
                 var errorFunc = jasmine.createSpy('errorFunc').andCallFake(function(){ throw Error(); });
                 instance.on('event', errorFunc);

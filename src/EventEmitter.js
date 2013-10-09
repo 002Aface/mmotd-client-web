@@ -45,13 +45,13 @@ define(
 
             if(this.listeners.hasOwnProperty(event)){
                 for(var i = 0; i < this.listeners[event].length; ++i){
-                   try {
-                       this.listeners[event][i].call(null, arguments);
-                   } catch (e) {
-                       if (console && console.error) {
-                           console.error(e);
-                       }
-                   }
+                    try {
+                        this.listeners[event][i].apply(null, arguments);
+                    } catch (e) {
+                        if (console && console.error) {
+                            console.error(e);
+                        }
+                    }
                 }
             }
 
