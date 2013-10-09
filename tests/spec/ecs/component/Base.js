@@ -1,6 +1,6 @@
 define(
     [
-        'component/Base'
+        'ecs/component/Base'
     ],
     function(Entity){
         describe("The Base E/C component", function(){

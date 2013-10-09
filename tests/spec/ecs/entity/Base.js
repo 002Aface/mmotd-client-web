@@ -1,7 +1,7 @@
 define(
     [
-        'entity/Base',
-        'component/Base'
+        'ecs/entity/Base',
+        'ecs/component/Base'
     ],
     function(Entity, Base){
         describe("The Base E/C entity", function(){

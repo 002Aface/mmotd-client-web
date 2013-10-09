@@ -1,6 +1,6 @@
 define(
     [
-        'system/Base'
+        'ecs/system/Base'
     ],
     function(Entity){
         describe('The Base E/C system', function(){

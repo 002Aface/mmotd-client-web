@@ -10,9 +10,9 @@ require(
     [
         "../tests/spec/EventEmitter",
 
-        "../tests/spec/entity/Base",
-        "../tests/spec/component/Base",
-        "../tests/spec/system/Base",
+        "../tests/spec/ecs/entity/Base",
+        "../tests/spec/ecs/component/Base",
+        "../tests/spec/ecs/system/Base",
 
         "../tests/spec/utils/Timer",
 
