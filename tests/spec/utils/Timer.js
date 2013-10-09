@@ -5,7 +5,6 @@ define(
             "The Timer utility",
             function(){
 
-                var async = new AsyncSpec(this);
                 var timerSpy;
 
                 beforeEach(function(){
