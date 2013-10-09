@@ -18,7 +18,6 @@ define(
             this.identifier = "BaseSystem";
             this.components = [];
             this.opts = _.extend(defaultOptions, opts);
-            console.log(this.opts)
             if(this.opts.autoStart){
                 this.start();
             }
