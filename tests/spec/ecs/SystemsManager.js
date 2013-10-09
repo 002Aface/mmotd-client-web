@@ -37,13 +37,13 @@ define(
             });
 
             it("should allows systems to be registered", function(){
-                var system = new BaseSystem();
+                var system = new BaseSystem({ autoRegister: false });
                 instance.register(system);
                 expect(instance._systems[system.identifier]).toBe(system);
             });
 
             it("should allow all systems to be unregistered and the manager reset", function(){
-                var system = new BaseSystem();
+                var system = new BaseSystem({ autoRegister: false });
                 instance.register(system);
                 expect(Object.keys(instance._systems).length).not.toEqual(0);
                 instance.unregisterAll();
@@ -55,13 +55,13 @@ define(
                 instance.on('systemRegistered', cbSpy);
                 expect(cbSpy).not.toHaveBeenCalled();
 
-                var system = new BaseSystem();
+                var system = new BaseSystem({ autoRegister: false });
                 instance.register(system);
                 expect(cbSpy).toHaveBeenCalledWith('systemRegistered', system);
             });
             
             it("should allow systems to be unregistered by object reference", function(){
-                var system = new BaseSystem();
+                var system = new BaseSystem({ autoRegister: false });
                 instance.register(system);
                 expect(instance._systems[system.identifier]).toBe(system);
                 instance.unregister(system);
@@ -69,7 +69,7 @@ define(
             });
 
             it("should allow systems to be unregistered by string name", function(){
-                var system = new BaseSystem();
+                var system = new BaseSystem({ autoRegister: false });
                 instance.register(system);
                 expect(instance._systems[system.identifier]).toBe(system);
                 instance.unregister(system.identifier);
@@ -80,7 +80,7 @@ define(
                 var cbSpy = jasmine.createSpy('cbSpy');
                 instance.on('systemUnregistered', cbSpy);
 
-                var system = new BaseSystem();
+                var system = new BaseSystem({ autoRegister: false });
                 instance.register(system);
                 expect(cbSpy).not.toHaveBeenCalled();
                 instance.unregister(system);
@@ -91,10 +91,10 @@ define(
                 var cbSpy = jasmine.createSpy('cbSpy');
                 instance.on('systemUnregistered', cbSpy);
 
-                var system1 = new BaseSystem();
+                var system1 = new BaseSystem({ autoRegister: false });
                 instance.register(system1);
 
-                var system2 = new BaseSystem();
+                var system2 = new BaseSystem({ autoRegister: false });
                 system2.identifier = "DerivedSystem";
                 instance.register(system2);
 
@@ -106,28 +106,28 @@ define(
             });
 
             it("should allow systems to be retrieved by string name", function(){
-                var system = new BaseSystem();
+                var system = new BaseSystem({ autoRegister: false });
                 instance.register(system);
                 expect(instance._systems[system.identifier]).toBe(system);
                 expect(instance.getSystem(system.identifier)).toBe(system);
             });
 
             it("should return null if system with string name not found", function(){
-                var system = new BaseSystem();
+                var system = new BaseSystem({ autoRegister: false });
                 instance.register(system);
                 expect(instance._systems[system.identifier]).toBe(system);
                 expect(instance.getSystem("DoesNotExist")).toBe(null);
             });
 
             it("should throw an error when unregistering a system that has not been registered", function(){
-                var system = new BaseSystem();
+                var system = new BaseSystem({ autoRegister: false });
                 expect(function(){
                     instance.unregister(system);
                 }).toThrow(new Error('System has not been registered'));
             });
 
             it("should throw an error when registering a system that is already registered", function(){
-                var system = new BaseSystem();
+                var system = new BaseSystem({ autoRegister: false });
                 instance.register(system);
                 expect(instance._systems[system.identifier]).toBe(system);
                 expect(function(){
