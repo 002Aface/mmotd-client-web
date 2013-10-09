@@ -1,16 +1,20 @@
 define(
     [
         'ecs/system/Base',
-        'ecs/component/Base'
+        'ecs/component/Base',
+        'ecs/SystemsManager'
     ],
-    function(BaseSystem, BaseComponent){
+    function(BaseSystem, BaseComponent, SystemsManager){
         describe('The Base E/C system', function(){
 
             var instance;
+            var manager;
 
             beforeEach(function(){
                 jasmine.Clock.useMock();
-                instance = new BaseSystem({updateInterval: 100, autoStart:false});
+                instance = new BaseSystem({updateInterval: 100, autoStart:false, autoRegister: false});
+                manager = new SystemsManager();
+                manager.unregisterAll();
             });
 
             afterEach(function(){
@@ -30,8 +34,21 @@ define(
                 expect(instance.components.length).toEqual(0);
             });
 
+            it("should automatically register itself with the SystemsManager if autoRegister is true", function(){
+                var regInstance = new BaseSystem({autoRegister: true});
+                expect(manager.getSystem("BaseSystem")).toBe(regInstance);
+            });
+
+            it("should not automatically register itself with the SystemsManager if autoRegister is false", function(){
+                var manager = new SystemsManager();
+                manager.unregisterAll();
+                var regInstance = new BaseSystem({autoRegister: false});
+                expect(manager.getSystem("BaseSystem")).toBeNull();
+            });
+
             it("should have a non-empty 'identifier' property for use with Systems Manager", function(){
                 expect(typeof instance.identifier).toEqual("string");
+                expect(instance.identifier).toEqual("BaseSystem");
             });
 
             it("should allow components to be registered", function(){
