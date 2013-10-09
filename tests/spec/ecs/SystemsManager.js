@@ -5,7 +5,7 @@ define(
     ],
     function(SystemsManager, BaseSystem){
 
-        describe("The Systems Manager", function(){
+        describe("The E/C Systems Manager", function(){
 
             var instance;
 
