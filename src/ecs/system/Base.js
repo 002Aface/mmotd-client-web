@@ -1,14 +1,26 @@
 define(
     [
+        "underscore",
         "EventEmitter"
     ],
-    function(EventEmitter){
+    function(_, EventEmitter){
 
-        var BaseSystem = function BaseSystem(){
+        var defaultOptions = {
+            autoStart: true,
+            updateInterval: 16
+        };
+
+        var BaseSystem = function BaseSystem(opts){
 
             EventEmitter.call(this);
             this.identifier = "BaseSystem";
             this.components = [];
+
+            this.opts = _.extend(defaultOptions, opts);
+
+            if(this.opts.autoStart){
+                this.start();
+            }
         };
 
         BaseSystem.prototype = Object.create(EventEmitter.prototype);
@@ -39,8 +51,12 @@ define(
             }
         };
 
-        BaseSystem.prototype.update = function(component){
+        BaseSystem.prototype.start = function(){
+            this.updateLoop = setInterval(_.bind(this.update, this), this.opts.updateInterval);
+        };
 
+        BaseSystem.prototype.update = function(){
+            this.emit('updated');
         };
 
         return BaseSystem;
