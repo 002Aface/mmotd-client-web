@@ -4,10 +4,10 @@ define(
     ],
     function(EventEmitter){
 
-        var BaseSystem = function(){
+        var BaseSystem = function BaseSystem(){
 
             EventEmitter.call(this);
-
+            this.identifier = "BaseSystem";
         };
 
         BaseSystem.prototype = Object.create(EventEmitter.prototype);

@@ -25,23 +25,27 @@ define(
             });
 
             it("should have no child entities when instantiated", function(){
-                assert(true).toBe(false);
+                expect(true).toBe(false);
+            });
+
+            it("should have a non-empty 'identifier' property for use with Systems Manager", function(){
+                expect(typeof instance.identifier).toEqual("string");
             });
 
             it("should allow entities to be registered", function(){
-                assert(true).toBe(false);
+                expect(true).toBe(false);
             });
 
             it("should allow entities to be unregisters", function(){
-                assert(true).toBe(false);
+                expect(true).toBe(false);
             });
 
             it("should error if an already registered entity is registered", function(){
-                assert(true).toBe(false);
+                expect(true).toBe(false);
             });
 
             it("should error if attempting to unregister an entity that was not registered", function(){
-                assert(true).toBe(false);
+                expect(true).toBe(false);
             });
 
         });
