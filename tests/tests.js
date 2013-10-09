@@ -8,11 +8,19 @@ require.config({
 
 require(
     [
+        "../tests/spec/EventEmitter",
+
+        "../tests/spec/entity/Base",
+        "../tests/spec/component/Base",
+        "../tests/spec/system/Base",
+
         "../tests/spec/utils/Timer",
+
         "../tests/spec/graphics/Drawable",
         "../tests/spec/graphics/Sprite",
         "../tests/spec/graphics/Spritemap",
         "../tests/spec/graphics/Scene",
+
         "../tests/spec/Renderer"
     ],
     function(){
