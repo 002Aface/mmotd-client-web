@@ -6,12 +6,15 @@ define(
     function(Sprite, Scene){
         describe("The Scene class", function(){
 
-            var instance;
+            var instance, child, loadSpy;
 
             beforeEach(function(){
-                runs(function(){
-                    instance = new Scene(300, 300);
-                });
+                instance = new Scene(300, 300);
+                loadSpy = jasmine.createSpy('loadSpy');
+                child = new Sprite('test_assets/imgs/sprite.png', 32, 32, loadSpy);
+                waitsFor(function(){
+                    return loadSpy.calls.length == 1;
+                }, "sprite source image to load", 500);
             });
 
             afterEach(function(){
@@ -19,21 +22,18 @@ define(
             });
 
             it("should allow Drawable instances to be added as children", function(){
-                var child = new Sprite('test_assets/imgs/sprite.png', 32, 32);
                 expect(instance.children.length).toEqual(0);
                 instance.addChild(child);
                 expect(instance.children.length).toEqual(1);
             });
 
             it("should call the onAdd() function of children when they are added", function(){
-                var child = new Sprite('test_assets/imgs/sprite.png', 32, 32);
                 spyOn(child, 'onAdd');
                 instance.addChild(child);
                 expect(child.onAdd).toHaveBeenCalledWith(instance);
             });
 
             it("should call the render() function of its children when rendering", function(){
-                var child = new Sprite('test_assets/imgs/sprite.png', 32, 32);
                 spyOn(child, 'render');
                 instance.addChild(child);
                 instance.render();
@@ -41,11 +41,6 @@ define(
             });
 
             it("should draw the output of childs render function to its own canvas", function(){
-                var child = new Sprite('test_assets/imgs/sprite.png', 32, 32);
-                spyOn(child.image, 'onload');
-                waitsFor(function(){
-                    return child.image.onload.calls.length == 1;
-                }, "image onload to be trigger", 1000);
                 var beforeState = instance.render().toDataURL();
                 instance.addChild(child);
                 var afterState = instance.render().toDataURL();
