@@ -9,7 +9,8 @@ define(
             var instance;
 
             beforeEach(function(){
-                instance = new BaseSystem();
+                jasmine.Clock.useMock();
+                instance = new BaseSystem({updateInterval: 100, autoStart:false});
             });
 
             afterEach(function(){
@@ -73,15 +74,43 @@ define(
                 var component = new BaseComponent({ autoRegister: false });
                 instance.register(component);
                 expect(function(){
-                    instance.register(component)
+                    instance.register(component);
                 }).toThrow(new Error('Component has already been registered'));
             });
 
             it("should error if attempting to unregister an component that was not registered", function(){
                 var component = new BaseComponent({ autoRegister: false });
                 expect(function(){
-                    instance.unregister(component)
+                    instance.unregister(component);
                 }).toThrow(new Error('Component has not been registered'));
+            });
+
+            it("should have an update function that is called at the specified interval", function(){
+                expect(instance.update).toBeDefined();
+                expect(instance.update instanceof Function).toBe(true);
+                spyOn(instance, 'update');
+
+                instance.start();
+
+                expect(instance.update).not.toHaveBeenCalled();
+                jasmine.Clock.tick(101);
+                expect(instance.update).toHaveBeenCalled();
+                expect(instance.update.calls.length).toEqual(1);
+                jasmine.Clock.tick(101);
+                expect(instance.update.calls.length).toEqual(2);
+            });
+
+            it("should emit 'updated' upon each update", function(){
+                var cbSpy = jasmine.createSpy('cbSpy');
+                instance.on('updated', cbSpy);
+
+                instance.start();
+                expect(cbSpy).not.toHaveBeenCalled();
+                jasmine.Clock.tick(101);
+                expect(cbSpy).toHaveBeenCalled();
+                expect(cbSpy.calls.length).toEqual(1);
+                jasmine.Clock.tick(101);
+                expect(cbSpy.calls.length).toEqual(2);
             });
 
         });
