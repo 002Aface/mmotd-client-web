@@ -33,13 +33,13 @@ define(
                 instance.on('event', cbSpy);
                 expect(instance.listeners.hasOwnProperty('event')).toBe(true);
                 expect(instance.listeners['event'].length).toEqual(1);
-                expect(instance.listeners['event'][0]).toEqual(cbSpy);
+                expect(instance.listeners['event'][0]).toBe(cbSpy);
             });
 
             it("should allow registered callbacks to be unregistered", function(){
                 var cbSpy = jasmine.createSpy('cbSpy');
                 instance.on('event', cbSpy);
-                expect(instance.listeners['event'][0]).toEqual(cbSpy);
+                expect(instance.listeners['event'][0]).toBe(cbSpy);
                 instance.off('event', cbSpy);
                 expect(instance.listeners['event'].length).toEqual(0);
             });
@@ -58,8 +58,8 @@ define(
                 var cbSpy = jasmine.createSpy('cbSpy');
                 instance.on('event1', cbSpy);
                 instance.on('event2', cbSpy);
-                expect(instance.listeners['event1'][0]).toEqual(cbSpy);
-                expect(instance.listeners['event2'][0]).toEqual(cbSpy);
+                expect(instance.listeners['event1'][0]).toBe(cbSpy);
+                expect(instance.listeners['event2'][0]).toBe(cbSpy);
                 instance.off(cbSpy);
                 expect(instance.listeners['event1'].length).toEqual(0);
                 expect(instance.listeners['event2'].length).toEqual(0);
