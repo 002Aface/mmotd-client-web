@@ -4,10 +4,11 @@ define(
         'graphics/Drawable'
     ],
     function(_, Drawable){
-        var Sprite = function(source, width, height){
+        var Sprite = function(source, width, height, onload){
             var me = this;
             Drawable.call(me);
             me.image = new Image();
+            me.image.onload = onload;
             me.image.src = source;
             me.width = width;
             me.height = height;
