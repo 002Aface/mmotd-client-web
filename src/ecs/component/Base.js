@@ -16,6 +16,7 @@ define(
             EventEmitter.call(this);
 
             this.systemsManager = new SystemsManager();
+            this.entity = null;
             this.opts = _.extend(defaultOptions, opts);
 
             if(this.opts.autoRegister){

@@ -20,7 +20,7 @@ define(
                     throw new Error('Component already exists');
                 }
             }
-
+            component.entity = this;
             this.components.push(component);
             this.emit('componentAdded', component);
         };
