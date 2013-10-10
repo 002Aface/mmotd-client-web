@@ -30,7 +30,7 @@ define(
                     throw new Error('Component already exists');
                 }
             }
-            component.entity = this;
+            component.onAdd(this);
             this.components.push(component);
             this.emit('componentAdded', component);
         };
@@ -43,6 +43,7 @@ define(
                 }
             }
             if (i < this.components.length){
+                this.components[i].onRemove();
                 this.components.splice(i, 1);
                 this.emit('componentRemoved', component);
             } else {
