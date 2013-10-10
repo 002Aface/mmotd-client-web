@@ -3,13 +3,13 @@ define(
         'ecs/entity/Base',
         'ecs/component/Base'
     ],
-    function(Entity, Base){
+    function(BaseEntity, BaseComponent){
         describe("The Base E/C entity", function(){
 
             var instance;
 
             beforeEach(function(){
-                instance = new Entity();
+                instance = new BaseEntity();
             });
 
             afterEach(function(){
@@ -30,7 +30,7 @@ define(
             });
 
             it("should allow components to be added to itself", function(){
-                var component = new Base();
+                var component = new BaseComponent({ autoRegister: false });
                 instance.addComponent(component);
 
                 expect(instance.components.length).toEqual(1);
@@ -42,13 +42,13 @@ define(
                 instance.on('componentAdded', cbSpy);
                 expect(cbSpy).not.toHaveBeenCalled();
 
-                var component = new Base();
+                var component = new BaseComponent({ autoRegister: false });
                 instance.addComponent(component);
                 expect(cbSpy).toHaveBeenCalledWith('componentAdded', component);
             });
 
             it("should allow added components to be removed", function(){
-                var component = new Base();
+                var component = new BaseComponent({ autoRegister: false });
                 instance.addComponent(component);
                 expect(instance.components.length).toEqual(1);
 
@@ -57,7 +57,7 @@ define(
             });
 
             it("should emit 'componentRemoved' event when component removed", function(){
-                var component = new Base();
+                var component = new BaseComponent({ autoRegister: false });
                 instance.addComponent(component);
                 expect(instance.components.length).toEqual(1);
 
@@ -71,7 +71,7 @@ define(
             });
 
             it("should error if attempting to add an already added component", function(){
-                var component = new Base();
+                var component = new BaseComponent({ autoRegister: false });
                 instance.addComponent(component);
                 expect(instance.components.length).toEqual(1);
 
@@ -79,7 +79,7 @@ define(
             });
 
             it("should error if attempting to remove a component that has not been added", function(){
-                var component = new Base();
+                var component = new BaseComponent({ autoRegister: false });
                 expect(instance.components.length).toEqual(0);
 
                 expect(function(){ instance.removeComponent(component); }).toThrow(new Error('Component does not exist'));
