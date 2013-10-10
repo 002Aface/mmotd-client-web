@@ -15,6 +15,8 @@ require(
         "../tests/spec/ecs/component/Base",
         "../tests/spec/ecs/system/Base",
 
+        "../tests/spec/ecs/system/graphics/CanvasRender",
+
         "../tests/spec/utils/Timer",
 
         "../tests/spec/graphics/Drawable",
