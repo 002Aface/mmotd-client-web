@@ -18,10 +18,6 @@ define(
             this.systemsManager = new SystemsManager();
             this.entity = null;
             this.opts = _.extend(defaultOptions, opts);
-
-            if(this.opts.autoRegister){
-                this.register();
-            }
         };
 
         BaseComponent.prototype = Object.create(EventEmitter.prototype);
@@ -30,6 +26,17 @@ define(
             var system = this.systemsManager.getSystem(this.opts.system);
             system.register(this);
             system.on('updated', _.bind(this.emit, this));
+        };
+
+        BaseComponent.prototype.onAdd = function(entity){
+            this.entity = entity;
+            if(this.opts.autoRegister){
+                this.register();
+            }
+        };
+
+        BaseComponent.prototype.onRemove = function(){
+            this.entity = null;
         };
 
         return BaseComponent;
