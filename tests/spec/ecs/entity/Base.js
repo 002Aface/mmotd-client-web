@@ -92,6 +92,15 @@ define(
                 expect(function(){ instance.removeComponent(component); }).toThrow(new Error('Component does not exist'));
             });
 
+            it("should allow components to specified in constructor", function(){
+                var component = new BaseComponent({ autoRegister: false });
+                var compEntity = new BaseEntity({
+                    components: [ component ]
+                });
+                expect(compEntity.components.length).toEqual(1);
+                expect(compEntity.components[0]).toBe(component);
+            });
+
         });
     }
 );
