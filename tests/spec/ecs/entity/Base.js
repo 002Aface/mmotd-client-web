@@ -37,11 +37,12 @@ define(
                 expect(instance.components[0]).toBe(component);
             });
 
-            it("should update the components 'entity' property to this when component is added", function(){
+            it("should call the onAdd function of components when added", function(){
                 var component = new BaseComponent({ autoRegister: false });
+                spyOn(component, 'onAdd');
+                expect(component.onAdd).not.toHaveBeenCalled();
                 instance.addComponent(component);
-                expect(instance.components[0]).toBe(component);
-                expect(component.entity).toBe(instance);
+                expect(component.onAdd).toHaveBeenCalledWith(instance);
             });
 
             it("should emit 'componentAdded' event when component added", function(){
@@ -61,6 +62,16 @@ define(
 
                 instance.removeComponent(component);
                 expect(instance.components.length).toEqual(0);
+            });
+
+            it("should call the onRemove function of components when removed", function(){
+                var component = new BaseComponent({ autoRegister: false });
+                spyOn(component, 'onRemove');
+
+                instance.addComponent(component);
+                expect(component.onRemove).not.toHaveBeenCalled();
+                instance.removeComponent(component);
+                expect(component.onRemove).toHaveBeenCalled();
             });
 
             it("should emit 'componentRemoved' event when component removed", function(){
