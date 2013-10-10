@@ -31,6 +31,11 @@ define(
                 expect(instance.emit instanceof Function).toBe(true);
             });
 
+            it("should have property 'entity' set to null when not attached to an entity", function(){
+                expect(instance.entity).toBeDefined();
+                expect(instance.entity).toBeNull();
+            });
+
             it("should be able to register itself with the configured system", function(){
                 expect(system.components.length).toEqual(0);
                 instance.register();

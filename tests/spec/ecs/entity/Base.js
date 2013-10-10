@@ -37,6 +37,13 @@ define(
                 expect(instance.components[0]).toBe(component);
             });
 
+            it("should update the components 'entity' property to this when component is added", function(){
+                var component = new BaseComponent({ autoRegister: false });
+                instance.addComponent(component);
+                expect(instance.components[0]).toBe(component);
+                expect(component.entity).toBe(instance);
+            });
+
             it("should emit 'componentAdded' event when component added", function(){
                 var cbSpy = jasmine.createSpy('cbSpy');
                 instance.on('componentAdded', cbSpy);
