@@ -15,7 +15,7 @@ define(
         var BaseSystem = function BaseSystem(opts){
 
             EventEmitter.call(this);
-            this.identifier = "BaseSystem";
+            this.identifier = this.identifier || "BaseSystem";  // allow overriding by derived 
             this.components = [];
             this.opts = _.extend(defaultOptions, opts);
             if(this.opts.autoStart){
