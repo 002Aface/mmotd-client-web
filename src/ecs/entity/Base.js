@@ -4,11 +4,21 @@ define(
     ],
     function(EventEmitter){
 
-        var BaseEntity = function(){
+        var defaultOptions = {
+            components: []
+        };
+
+        var BaseEntity = function(opts){
 
             EventEmitter.call(this);
             this.components = [];
 
+            opts = opts || {};
+            this.opts = _.extend(defaultOptions, opts);
+
+            for(var i = 0; i < this.opts.components.length; i++){
+                this.addComponent(this.opts.components[i]);
+            }
         };
 
         BaseEntity.prototype = Object.create(EventEmitter.prototype);
