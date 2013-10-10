@@ -4,20 +4,16 @@ define(
         'ecs/entity/Base',
         'ecs/component/Base',
         'ecs/component/core/Transform',
-        'ecs/component/graphics/Sprite',
-        'ecs/SystemsManager'
+        'ecs/component/graphics/Sprite'
     ],
-    function(CanvasRenderSystem, BaseEntity, BaseComponent, TransformComponent, SpriteComponent, SystemsManager){
+    function(CanvasRenderSystem, BaseEntity, BaseComponent, TransformComponent, SpriteComponent){
         describe('The Canvas Render system', function(){
 
             var instance;
-            var manager;
 
             beforeEach(function(){
                 jasmine.Clock.useMock();
                 instance = new CanvasRenderSystem({ updateInterval: 100, autoStart:false, autoRegister: false, viewCanvas: null });
-                manager = new SystemsManager();
-                manager.unregisterAll();
             });
 
             afterEach(function(){
@@ -41,21 +37,6 @@ define(
                 expect(viewInstance.view).toBe(viewCanvas);
             });
 
-
-            // TODO This is sanity here, this should really be checked when a component is added to an entity, but currently components are auto
-            // registered on constructor. Perhaps auto registration should be moved to when a component is added to an entity?
-            // This would make a lot more sense as a component should not be acted on by a system outside of an entity.
-            it("should error when registering a component whose attached entity does not also have a TransformComponent", function(){
-                var spriteComponent = new SpriteComponent({ graphic: 'test_assets/imgs/sprite.png', autoRegister: false });
-                var entity = new BaseEntity({
-                    components: [ spriteComponent ]
-                });
-
-                expect(function(){
-                    instance.register(spriteComponent);
-                }).toThrow(new Error("Attached entity has no transform, cannot register component"));
-            });
-
             it("should error when registering components without a 'graphic' property", function(){
                 var baseComponent = new BaseComponent({ autoRegister: false });
                 expect(function(){
@@ -63,12 +44,12 @@ define(
                 }).toThrow(new Error("Component is not renderable, missing 'graphic' property"));
             });
 
-            it("should allow components that have both a 'graphic' property and an associated transform component to be registered", function(){
+            it("should allow components that have a 'graphic' property to be registered", function(){
                 var spriteComponent = new SpriteComponent({ graphic: 'test_assets/imgs/sprite.png', autoRegister: false });
                 var entity = new BaseEntity({
                     components: [
-                        spriteComponent,
-                        new TransformComponent({ autoRegister: false })
+                        new TransformComponent({ autoRegister: false }),
+                        spriteComponent
                     ]
                 });
                 instance.register(spriteComponent);
@@ -77,7 +58,34 @@ define(
             });
 
             it("should draw components 'graphic' property to 'view' canvas on update", function(){
-                assert(false).toBe(true);
+                instance.update();
+                var beforeData = instance.view.toDataURL();
+                var img = new Image();
+                img.src = beforeData;
+
+                var cbSpy = jasmine.createSpy('cbSpy');
+                var spriteComponent = new SpriteComponent({ source: 'test_assets/imgs/sprite.png', autoRegister: false });
+                spriteComponent.on('graphicLoaded', cbSpy);
+
+                waitsFor(function(){
+                    return cbSpy.calls.length == 1;
+                }, 'sprite graphic to be loaded', 2000);
+                runs(function(){
+                    var entity = new BaseEntity({
+                        components: [
+                            new TransformComponent({ autoRegister: false }),
+                            spriteComponent
+                        ]
+                    });
+                    instance.register(spriteComponent);
+
+                    instance.update();
+                    var afterData = instance.view.toDataURL();
+                    img = new Image();
+                    img.src = afterData;
+
+                    expect(beforeData).not.toEqual(afterData);
+                });
             });
 
         });
