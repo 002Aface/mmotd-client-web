@@ -11,10 +11,13 @@ require(
         "../tests/spec/EventEmitter",
 
         "../tests/spec/ecs/SystemsManager",
-        "../tests/spec/ecs/entity/Base",
-        "../tests/spec/ecs/component/Base",
-        "../tests/spec/ecs/system/Base",
 
+        "../tests/spec/ecs/entity/Base",
+
+        "../tests/spec/ecs/component/Base",
+        "../tests/spec/ecs/component/graphics/Sprite",
+
+        "../tests/spec/ecs/system/Base",
         "../tests/spec/ecs/system/graphics/CanvasRender",
 
         "../tests/spec/utils/Timer",
