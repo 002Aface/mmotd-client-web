@@ -6,17 +6,16 @@ define(
         'ecs/SystemsManager'
     ],
     function(_, BaseComponent, TransformComponent, SystemsManager){
-
-        var defaultOptions = {
-            autoRegister: true,
-            system: "CanvasRenderSystem",
-            source: null,
-        };
-
         var SpriteComponent = function(opts){
 
+            var defaults = {
+                autoRegister: true,
+                system: "CanvasRenderSystem",
+                source: null,
+            };
+
             BaseComponent.call(this, opts);
-            this.opts = _.extend(defaultOptions, opts);
+            this.opts = _.extend(defaults, opts);
 
             this.graphic = new Image();
             this.graphic.onload = _.bind(this.onLoad, this);
@@ -25,7 +24,19 @@ define(
 
         SpriteComponent.prototype = Object.create(BaseComponent.prototype);
 
-        SpriteComponent.prototype.onLoad = function(){
+        SpriteComponent.prototype.onLoad = function(evt){
+            this.width = this.graphic.width;
+            this.height = this.graphic.height;
+
+            if (this.hasOwnProperty('transform')){
+                if (this.transform.width === 0 && this.hasOwnProperty('width')){
+                    this.transform.width = this.width;
+                }
+                
+                if (this.transform.height === 0 && this.hasOwnProperty('height')){
+                    this.transform.height = this.height;
+                }
+            }
             this.emit('graphicLoaded');
         };
 
@@ -35,6 +46,14 @@ define(
                 if(entity.components[i] instanceof TransformComponent){
                     hasTransform = true;
                     this.transform = entity.components[i];
+
+                    if (this.transform.width === 0 && this.hasOwnProperty('width')){
+                        this.transform.width = this.width;
+                    }
+                    
+                    if (this.transform.height === 0 && this.hasOwnProperty('height')){
+                        this.transform.height = this.height;
+                    }
                 }
             }
             if(!hasTransform){
