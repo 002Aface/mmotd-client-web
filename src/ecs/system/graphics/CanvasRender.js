@@ -16,7 +16,6 @@ define(
                 viewCanvas: null
             };
 
-            this.identifier = this.identifier || "CanvasRenderSystem";  // allow overriding by derived 
             BaseSystem.call(this, opts);
             this.opts = _.extend(defaults, opts);
 
@@ -29,6 +28,8 @@ define(
         };
 
         CanvasRenderSystem.prototype = Object.create(BaseSystem.prototype);
+
+        CanvasRenderSystem.prototype.identifier = "CanvasRenderSystem";
 
         CanvasRenderSystem.prototype.register = function(component){
             if(!component.hasOwnProperty('graphic') || !component.graphic){
