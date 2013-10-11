@@ -15,7 +15,6 @@ define(
             };
 
             EventEmitter.call(this);
-            this.identifier = this.identifier || "BaseSystem";  // allow overriding by derived 
             this.components = [];
             this.opts = _.extend(defaults, opts);
             if(this.opts.autoStart){
@@ -29,6 +28,8 @@ define(
         };
 
         BaseSystem.prototype = Object.create(EventEmitter.prototype);
+
+        BaseSystem.prototype.identifier = "BaseSystem";
 
         BaseSystem.prototype.register = function(component){
 
