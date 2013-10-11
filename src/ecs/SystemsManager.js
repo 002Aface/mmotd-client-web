@@ -28,9 +28,8 @@ define(
         };
 
         SystemsManager.prototype.unregister = function(sys_str){
-
+            console.log(sys_str);
             if (sys_str instanceof String || typeof sys_str == "string"){
-
                 if (!this._systems.hasOwnProperty(sys_str)){
                     throw new Error('System has not been registered');
                 }
@@ -39,7 +38,7 @@ define(
                 delete this._systems[sys_str];
                 this.emit('systemUnregistered', system);
 
-            } else if (sys_str instanceof Object && sys_str.hasOwnProperty('identifier')){
+            } else if (sys_str instanceof Object && sys_str.identifier){
 
                 if (!this._systems.hasOwnProperty(sys_str.identifier)){
                     throw new Error('System has not been registered');
