@@ -11,7 +11,7 @@ define(
             var defaults = {
                 autoRegister: true,
                 system: "CanvasRenderSystem",
-                source: null,
+                source: "",
             };
 
             BaseComponent.call(this, opts);
@@ -19,7 +19,9 @@ define(
 
             this.graphic = new Image();
             this.graphic.onload = _.bind(this.onLoad, this);
-            this.graphic.src = this.opts.source;
+            if(this.opts.source){
+                this.graphic.src = this.opts.source;
+            }
         };
 
         SpriteComponent.prototype = Object.create(BaseComponent.prototype);
