@@ -7,18 +7,18 @@ define(
     ],
     function(_, TransformComponent, BaseSystem, SystemsManager){
 
-        var defaultOptions = {
-            autoRegister: true,
-            autoStart: true,
-            updateInterval: 16,
-            viewCanvas: null
-        };
-
         var CanvasRenderSystem = function(opts){
+
+            var defaults = {
+                autoRegister: true,
+                autoStart: true,
+                updateInterval: 16,
+                viewCanvas: null
+            };
 
             this.identifier = this.identifier || "CanvasRenderSystem";  // allow overriding by derived 
             BaseSystem.call(this, opts);
-            this.opts = _.extend(defaultOptions, opts);
+            this.opts = _.extend(defaults, opts);
 
             if(this.opts.viewCanvas === null){
                 this.view = document.createElement('canvas');

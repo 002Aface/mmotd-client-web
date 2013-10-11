@@ -4,17 +4,17 @@ define(
     ],
     function(EventEmitter){
 
-        var defaultOptions = {
-            components: []
-        };
-
         var BaseEntity = function(opts){
+
+            var defaults = {
+                components: []
+            };
 
             EventEmitter.call(this);
             this.components = [];
 
             opts = opts || {};
-            this.opts = _.extend(defaultOptions, opts);
+            this.opts = _.extend(defaults, opts);
 
             for(var i = 0; i < this.opts.components.length; i++){
                 this.addComponent(this.opts.components[i]);

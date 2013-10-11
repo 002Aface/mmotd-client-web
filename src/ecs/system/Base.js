@@ -6,18 +6,18 @@ define(
     ],
     function(_, EventEmitter, SystemsManager){
 
-        var defaultOptions = {
-            autoRegister: true,
-            autoStart: true,
-            updateInterval: 16
-        };
-
         var BaseSystem = function BaseSystem(opts){
+
+            var defaults = {
+                autoRegister: true,
+                autoStart: true,
+                updateInterval: 16
+            };
 
             EventEmitter.call(this);
             this.identifier = this.identifier || "BaseSystem";  // allow overriding by derived 
             this.components = [];
-            this.opts = _.extend(defaultOptions, opts);
+            this.opts = _.extend(defaults, opts);
             if(this.opts.autoStart){
                 this.start();
             }

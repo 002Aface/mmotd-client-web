@@ -6,18 +6,18 @@ define(
     ],
     function(_, EventEmitter, SystemsManager){
 
-        var defaultOptions = {
-            autoRegister: true,
-            system: "BaseSystem"
-        };
-
         var BaseComponent = function(opts){
+
+            var defaults = {
+                autoRegister: true,
+                system: "BaseSystem"
+            };
 
             EventEmitter.call(this);
 
             this.systemsManager = new SystemsManager();
             this.entity = null;
-            this.opts = _.extend(defaultOptions, opts);
+            this.opts = _.extend(defaults, opts);
         };
 
         BaseComponent.prototype = Object.create(EventEmitter.prototype);
