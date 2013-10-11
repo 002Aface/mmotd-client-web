@@ -21,14 +21,7 @@ require(
         "../tests/spec/ecs/system/Base",
         "../tests/spec/ecs/system/graphics/CanvasRender",
 
-        "../tests/spec/utils/Timer",
-
-        "../tests/spec/graphics/Drawable",
-        "../tests/spec/graphics/Sprite",
-        "../tests/spec/graphics/Spritemap",
-        "../tests/spec/graphics/Scene",
-
-        "../tests/spec/Renderer"
+        "../tests/spec/utils/Timer"
     ],
     function(){
         var jasmineEnv = jasmine.getEnv();
