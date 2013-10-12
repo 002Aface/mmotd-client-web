@@ -28,7 +28,6 @@ define(
         };
 
         SystemsManager.prototype.unregister = function(sys_str){
-            console.log(sys_str);
             if (sys_str instanceof String || typeof sys_str == "string"){
                 if (!this._systems.hasOwnProperty(sys_str)){
                     throw new Error('System has not been registered');

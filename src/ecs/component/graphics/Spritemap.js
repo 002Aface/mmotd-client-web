@@ -53,7 +53,6 @@ define(
         };
 
         SpritemapComponent.prototype.redraw = function(){
-            console.log(this._frameRects[this.currentFrame]);
             this._context.clearRect(0, 0, this.width, this.height);
             this._context.drawImage(
                 this._sourceImage,

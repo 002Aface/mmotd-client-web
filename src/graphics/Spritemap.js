@@ -27,7 +27,6 @@ define(
 
         Spritemap.prototype.generateMap = function(e){
             var me = this;
-            console.log(me.rawImage.height);
             for(var y = 0; y < me.rawImage.height / me.height; y++){
                 for(var x = 0; x < me.rawImage.width / me.width; x++){
                     me._frameRects.push({
