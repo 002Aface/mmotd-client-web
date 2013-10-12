@@ -16,6 +16,7 @@ require(
 
         "../tests/spec/ecs/component/Base",
         "../tests/spec/ecs/component/graphics/Sprite",
+        "../tests/spec/ecs/component/graphics/Spritemap",
         "../tests/spec/ecs/component/core/Transform",
 
         "../tests/spec/ecs/system/Base",
